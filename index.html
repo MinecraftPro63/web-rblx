@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +8,22 @@
 </head>
 <body>
     <script>
-        const path = window.location.pathname.substring(1);
-        const params = path.split('/');
-        const placeId = params[0];
-        const jobId = params[1];
+        // Get the full path after the domain
+        const fullPath = window.location.pathname;
+        
+        // Split and filter out empty parts and 'web-rblx'
+        const pathParts = fullPath.split('/').filter(part => part && part !== 'web-rblx');
+        
+        // Last two parts should be PlaceID and JobID
+        let placeId, jobId;
+        
+        if (pathParts.length >= 2) {
+            placeId = pathParts[pathParts.length - 2];
+            jobId = pathParts[pathParts.length - 1];
+        }
         
         if (placeId && jobId) {
+            // Redirect to Roblox
             window.location.href = `roblox://placeId=${placeId}&gameInstanceId=${jobId}`;
         }
     </script>
